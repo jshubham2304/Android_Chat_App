@@ -2,6 +2,7 @@ package com.androidchatapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -9,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Chat extends AppCompatActivity {
     LinearLayout layout;
@@ -24,7 +24,6 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,45 +65,49 @@ public class Chat extends AppCompatActivity {
                 }
                 else{
                     addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
-                }
+                    }
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
+                }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
+                }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });
     }
-
+// Add the TextView here for messaging purpose
     public void addMessageBox(String message, int type){
         TextView textView = new TextView(Chat.this);
         textView.setText(message);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        textView.setTextSize(16);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setMargins(5, 5, 5, 10);
+
+        textView.setPadding(10,10,10,10);
+
         textView.setLayoutParams(lp);
 
         if(type == 1) {
-            textView.setBackgroundResource(R.drawable.rounded_corner1);
+            //textView.setBackgroundResource(R.drawable.rounded_corner1);
+            textView.setShadowLayer(10,5,5,R.color.colorAccent);
+            layout.setGravity(Gravity.RIGHT);
+            textView.setGravity(Gravity.RIGHT);
+
         }
         else{
-            textView.setBackgroundResource(R.drawable.rounded_corner2);
+            layout.setGravity(Gravity.LEFT);
+            textView.setGravity(Gravity.LEFT);
+            //textView.setBackgroundResource(R.drawable.rounded_corner2);
         }
-
         layout.addView(textView);
         scrollView.fullScroll(View.FOCUS_DOWN);
     }
