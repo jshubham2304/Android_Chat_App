@@ -1,19 +1,28 @@
 package com.androidchatapp;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,10 +70,10 @@ public class Chat extends AppCompatActivity {
                 String userName = map.get("user").toString();
 
                 if(userName.equals(UserDetails.username)){
-                    addMessageBox("You:-\n" + message, 1,userName);
+                    addMessageBox( message, 1,"You");
                 }
                 else{
-                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2,UserDetails.chatWith);
+                    addMessageBox( message, 2,UserDetails.chatWith);
                     }
             }
             @Override
@@ -86,29 +95,72 @@ public class Chat extends AppCompatActivity {
     }
 // Add the TextView here for messaging purpose
     public void addMessageBox(String message, int type,String user){
-        TextView textView = new TextView(Chat.this);
-        textView.setText("\uD83D\uDC3C  "+user+" \n\t"+ message);
-        textView.setTextSize(16);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(5, 5, 5, 10);
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time =&gt; "+c.getTime());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = df.format(c.getTime());
+// Now formattedDate have current date/time
+        Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
+//        TextView textView = new TextView(Chat.this);
+//        textView.setText("\uD83D\uDC3C  "+user+" \n\t"+ message + "\n\n"+c.getTime());
+//        textView.setTextSize(16);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        lp.setMargins(5, 5, 5, 10);
+//
+//        textView.setPadding(10,10,10,10);
+//
+//        textView.setLayoutParams(lp);
+        CardView card = new CardView(this);
 
-        textView.setPadding(10,10,10,10);
+        // Set the CardView layoutParams
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        card.setLayoutParams(params);
+        params.setMargins(5,5,5,5);
+        // Set CardView corner radius
+        card.setRadius(5);
+        card.setCardElevation(5);
+        // Initialize a new TextView to put in CardView
+        TextView tv = new TextView(this);
+        tv.setLayoutParams(params);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+        tv.setTextColor(Color.BLACK);
 
-        textView.setLayoutParams(lp);
+        // Put the TextView in CardView
+        card.addView(tv);
 
+        // Finally, add the
         if(type == 1) {
-            //textView.setBackgroundResource(R.drawable.rounded_corner1);
-            textView.setShadowLayer(10,5,5,R.color.colorAccent);
-            layout.setGravity(Gravity.RIGHT);
-            textView.setGravity(Gravity.RIGHT);
+            params.setMargins(5,5,5,5);
+            card.setLayoutParams(params);
+            card.setCardBackgroundColor(Color.parseColor("#6ce3f5"));
+            card.setForegroundGravity(Gravity.RIGHT);
+            params.gravity=Gravity.RIGHT;
+            card.setLayoutParams(params);
+            tv.setText(message);
+            tv.setMaxWidth(500);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            tv.setTextColor(Color.BLACK);
 
+//            textView.setShadowLayer(10,5,5,R.color.colorAccent);
+//            layout.setGravity(Gravity.RIGHT);
+//            textView.setGravity(Gravity.RIGHT);
         }
         else{
-            layout.setGravity(Gravity.LEFT);
-            textView.setGravity(Gravity.LEFT);
-            //textView.setBackgroundResource(R.drawable.rounded_corner2);
+            params.gravity=Gravity.LEFT;
+            card.setLayoutParams(params);
+            card.setCardBackgroundColor(Color.parseColor("#d3d4d4"));
+            tv.setText(message);
+            tv.setMaxWidth(250);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            tv.setTextColor(Color.BLACK);
+
+//            layout.setGravity(Gravity.LEFT);
+//            textView.setGravity(Gravity.LEFT);
         }
-        layout.addView(textView);
+        layout.addView(card);
         scrollView.fullScroll(View.FOCUS_DOWN);
     }
 }
