@@ -50,14 +50,23 @@ public class Chat extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                System.out.println("Current time =&gt; "+c.getTime());
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String formattedDate = df.format(c.getTime());
                 String messageText = messageArea.getText().toString();
 
                 if(!messageText.equals("")){
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("message", messageText);
-                    map.put("user", UserDetails.username);
-                    reference1.push().setValue(map);
-                    reference2.push().setValue(map);
+                    reference1 = reference1.push();
+                    reference1.child("message").setValue(messageText);
+                    reference1.child("user").setValue(UserDetails.username);
+                    reference1.child("time").setValue(c.getTime());
+                    reference2 = reference2.push();
+                    reference2.child("message").setValue(messageText);
+                    reference2.child("user").setValue(UserDetails.username);
+                    reference2.child("time").setValue(c.getTime());
+
+
                 }
             }
         });
@@ -100,7 +109,7 @@ public class Chat extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = df.format(c.getTime());
 // Now formattedDate have current date/time
-        Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
 //        TextView textView = new TextView(Chat.this);
 //        textView.setText("\uD83D\uDC3C  "+user+" \n\t"+ message + "\n\n"+c.getTime());
 //        textView.setTextSize(16);
