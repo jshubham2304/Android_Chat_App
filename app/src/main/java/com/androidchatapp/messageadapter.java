@@ -33,8 +33,8 @@ public class messageadapter extends RecyclerView.Adapter {
 
         public TextTypeViewHolder(View itemView) {
             super(itemView);
-            this.txt = (TextView) itemView.findViewById(R.id.textview_message);
-            this.time = (TextView) itemView.findViewById(R.id.time);
+            this.txt = (TextView) itemView.findViewById(R.id.textview_message2);
+            this.time = (TextView) itemView.findViewById(R.id.time2);
         }
     }
 
@@ -45,8 +45,8 @@ public class messageadapter extends RecyclerView.Adapter {
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
-            this.txt = (TextView) itemView.findViewById(R.id.textview_message2);
-            this.time = (TextView) itemView.findViewById(R.id.time2);
+            this.txt = (TextView) itemView.findViewById(R.id.textview_message);
+            this.time = (TextView) itemView.findViewById(R.id.time);
         }
     }
 
@@ -56,10 +56,10 @@ public class messageadapter extends RecyclerView.Adapter {
         View view;
         switch (viewType) {
             case 0:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bubble_out, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bubble_out2, parent, false);
                 return new TextTypeViewHolder(view);
             case 1:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bubble_out2, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bubble_out, parent, false);
                 return new ImageTypeViewHolder(view);
         }
         return null;
