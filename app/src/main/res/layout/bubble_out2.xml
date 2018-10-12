@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/messagein"
-    android:padding="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="50dp"
     android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="50dp"
     android:layout_height="wrap_content"
-    android:id="@+id/msgcard"
+    android:id="@+id/msgcard2"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
+        android:padding="5dp"
+        android:background="@drawable/messageown"
+        android:layout_alignParentRight="true"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <TextView
+        <TextView
             android:layout_margin="3dp"
-            android:id="@+id/textview_message"
+            android:id="@+id/textview_message2"
             android:textStyle="bold"
+            android:textColor="#3048df"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:autoLink="web"
@@ -27,11 +29,11 @@
             android:layout_margin="3dp"
             android:gravity="bottom"
             android:layout_gravity="right"
-            android:id="@+id/time"
+            android:id="@+id/time2"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textSize="16sp"
             android:text="hello "
             tools:ignore="RtlCompat" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
