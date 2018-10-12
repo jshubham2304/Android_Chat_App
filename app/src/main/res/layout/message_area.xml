@@ -21,7 +21,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <ImageView
-        android:background="#57d2ff"
+        android:background="#021b79"
         android:layout_weight="0.8"
         android:scaleType="centerInside"
         android:layout_width="match_parent"
