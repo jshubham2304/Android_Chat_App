@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".Register" />
         <activity android:name=".Users" />
-        <activity android:name=".Chat" />
+        <activity android:name=".Chat" android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>
