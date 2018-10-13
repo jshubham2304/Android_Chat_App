@@ -45,6 +45,7 @@ public class Chat extends AppCompatActivity {
     List<String> time=new ArrayList<>();
     RecyclerView rec;
     @Override
+    // chating activity where the two person doing chat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
